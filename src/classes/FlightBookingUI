@@ -1,0 +1,134 @@
+package classes;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class FlightBookingUI extends JFrame {
+
+    private ButtonGroup flightGroup; 
+    private JRadioButton selectedRadioButton = null; 
+
+    public FlightBookingUI() {
+        setTitle("FLY");
+        setSize(450, 700);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        // Initialize ButtonGroup for the radio buttons
+        flightGroup = new ButtonGroup();
+
+        // Header panel
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        JLabel titleLabel = new JLabel("Select Your Flight", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20)); 
+        titleLabel.setForeground(new Color(34, 177, 76));
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+        add(headerPanel, BorderLayout.NORTH);
+
+        // Bottom panel with navigation buttons
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+
+        JPanel nextButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton confirmButton = new JButton("Next>>");
+        styleButton(confirmButton);
+        nextButtonPanel.add(confirmButton);
+
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton backButton = new JButton("<<Back");
+        styleButton(backButton);
+        backPanel.add(backButton);
+
+        bottomPanel.add(backPanel, BorderLayout.WEST);
+        bottomPanel.add(nextButtonPanel, BorderLayout.EAST);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // Flight options panel
+        JPanel flightListPanel = new JPanel();
+        flightListPanel.setLayout(new BoxLayout(flightListPanel, BoxLayout.Y_AXIS));
+
+        String flights[][] = {
+            {"Novoair", "NA - 576", "17:20", "18:20", "৳4,000", "Dhaka to Chittagong"},
+            {"BD-Biman", "BB - 575", "08:00", "09:00", "৳5,500", "Dhaka to Jessore"},
+            {"US-Bangla", "UB - 163", "13:00", "14:00", "৳2,100", "Dhaka to Rangpur"},
+            {"US-Bangla", "UB - 183", "10:00", "11:00", "৳10,000", "Dhaka to Cox's Bazar"},
+            {"US-Bangla", "UB - 163", "13:00", "14:00", "৳2,100", "Dhaka to Rangpur"},
+            {"US-Bangla", "UB - 165", "01:00", "03:00", "৳7,000", "Dhaka to Kolkata"}
+        };
+
+        for (String flight[] : flights) {
+            flightListPanel.add(createFlightOption(flight[0], flight[1], flight[2], flight[3], flight[4], flight[5]));
+        }
+
+        JScrollPane scrollPane = new JScrollPane(flightListPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(450, 500)); 
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Action listeners for buttons
+        backButton.addActionListener(e -> {
+            setVisible(false); 
+            new LoginForm(); 
+        });
+
+        confirmButton.addActionListener(e -> {
+            if (flightGroup.getSelection() == null) {
+                JOptionPane.showMessageDialog(FlightBookingUI.this, "Please select a flight", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                setVisible(false);
+                new FlightBookingForm(); 
+            }
+        });
+
+        setVisible(true); // Make the frame visible
+    }
+
+    private JPanel createFlightOption(String airline, String flightNumber, String depTime, String arrTime, String price, String destination) {
+        JPanel flightPanel = new JPanel();
+        flightPanel.setLayout(new BorderLayout());
+        flightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        flightPanel.setBackground(Color.gray);
+        flightPanel.setPreferredSize(new Dimension(400, 100)); 
+
+        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JRadioButton selectButton = new JRadioButton();
+        flightGroup.add(selectButton); 
+        radioPanel.add(selectButton);
+
+        selectButton.addActionListener(e -> selectedRadioButton = selectButton); 
+
+        JPanel leftPanel = new JPanel(new GridLayout(3, 1));
+        JLabel airlineLabel = new JLabel(airline, JLabel.TOP); 
+        JLabel flightnumLabel = new JLabel(flightNumber, JLabel.CENTER); 
+        JLabel destinationLabel = new JLabel(destination, JLabel.BOTTOM); 
+        destinationLabel.setForeground(new Color(34, 177, 76));
+        leftPanel.add(airlineLabel);
+        leftPanel.add(flightnumLabel);
+        leftPanel.add(destinationLabel);
+
+        JPanel rightPanel = new JPanel(new GridLayout(2, 1));
+        JLabel priceLabel = new JLabel(price, JLabel.RIGHT);
+        JLabel arrTimeLabel = new JLabel("Time: " + depTime + " to " + arrTime, JLabel.LEFT);
+        rightPanel.add(priceLabel);
+        rightPanel.add(arrTimeLabel);
+
+        flightPanel.add(radioPanel, BorderLayout.WEST);   
+        flightPanel.add(leftPanel, BorderLayout.CENTER); 
+        flightPanel.add(rightPanel, BorderLayout.EAST);   
+
+        return flightPanel;
+    }
+
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(100, 40));
+        button.setBackground(new Color(34, 177, 76)); 
+        button.setForeground(Color.WHITE);
+    }
+
+    public static void main(String[] args) {
+        new FlightBookingUI(); // Run the form
+    }
+}
