@@ -16,7 +16,7 @@ public class FlightBookingUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JLabel backgroundLabel = new JLabel(new ImageIcon("C:\\Users\\Administrator\\Desktop\\pic\\ticket.jpg"));
+        JLabel backgroundLabel = new JLabel(new ImageIcon("resource/pic/ticket.jpg"));
         backgroundLabel.setLayout(new BorderLayout()); 
         setContentPane(backgroundLabel); 
 

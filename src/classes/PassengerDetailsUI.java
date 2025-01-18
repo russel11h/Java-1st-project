@@ -15,7 +15,7 @@ public class PassengerDetailsUI extends JFrame {
         setLocationRelativeTo(null);
 
         
-        JLabel backgroundLabel = new JLabel(new ImageIcon("C:\\Users\\Administrator\\Desktop\\pic\\ticket.jpg"));
+        JLabel backgroundLabel = new JLabel(new ImageIcon("resource/pic/ticket.jpg"));
         backgroundLabel.setLayout(new BorderLayout());
         setContentPane(backgroundLabel); 
        

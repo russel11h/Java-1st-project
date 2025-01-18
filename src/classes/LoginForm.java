@@ -17,7 +17,7 @@ public class LoginForm extends JFrame {
         setLocationRelativeTo(null);
 
         
-        ImageIcon backgroundImageIcon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\pic\\ticket.jpg");
+        ImageIcon backgroundImageIcon = new ImageIcon("resource/pic/ticket.jpg");
         Image backgroundImage = backgroundImageIcon.getImage();
         Image scaledImage = backgroundImage.getScaledInstance(1080, 720, Image.SCALE_SMOOTH); 
         JLabel backgroundLabel = new JLabel(new ImageIcon(scaledImage));

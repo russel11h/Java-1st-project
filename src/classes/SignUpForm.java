@@ -17,7 +17,7 @@ public class SignUpForm extends JFrame {
         setLocationRelativeTo(null);
 
 
-        JLabel backgroundLabel = new JLabel(new ImageIcon("C:\\Users\\Administrator\\Desktop\\pic\\airport (2).jpg"));
+        JLabel backgroundLabel = new JLabel(new ImageIcon("resource/pic/airport.jpg.jpg"));
         backgroundLabel.setLayout(new BorderLayout());
         setContentPane(backgroundLabel);
 
